@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const db = require('_helpers/db');
 
+
 module.exports = {
     getAll,
     getById,
@@ -20,7 +21,7 @@ async function getById(id) {
 
 async function create(params) {
 
-    if (await db.User.findOnce({ where: { email: params.email } })) {
+    if (await db.User.findOne({ where: { email: params.email } })) {
         throw 'Email "'+ params.email + '" is already registered';
     }
 
@@ -35,7 +36,7 @@ async function update (id, params) {
     const user = await getUser(id);
 
     const usernameChanged = params.username && user.username !== params. username;
-    if (usernameChanged && await db.User.findOnce({ where : { username: params.username } })) {
+    if (usernameChanged && await db.User.findOne({ where : { username: params.username } })) {
         throw 'Username "' + params.username + '" is already taken';
     }
 

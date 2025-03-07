@@ -4,20 +4,20 @@ module.exports = model;
 
 function model(sequelize) {
     const attributes = {
-        email: {tpye: DataType.String, allowNull: false },
-        passwordHash: {tpye: DataType.String, allowNull: false },
-        title: {tpye: DataType.String, allowNull: false },
-        firstName: {tpye: DataType.String, allowNull: false },
-        lastName: {tpye: DataType.String, allowNull: false },
-        role: {tpye: DataType.String, allowNull: false },
+        email: { type: DataTypes.STRING, allowNull: false },  // ✅ FIXED
+        passwordHash: { type: DataTypes.STRING, allowNull: false },  // ✅ FIXED
+        title: { type: DataTypes.STRING, allowNull: false },  // ✅ FIXED
+        firstName: { type: DataTypes.STRING, allowNull: false },  // ✅ FIXED
+        lastName: { type: DataTypes.STRING, allowNull: false },  // ✅ FIXED
+        role: { type: DataTypes.STRING, allowNull: false },  // ✅ FIXED
     };
 
     const options = {
         defaultScope: {
-            attributes: {exclude: ['passwordHash'] }
+            attributes: { exclude: ['passwordHash'] }
         },
         scopes: {
-            withHash: { attributes: {}, }
+            withHash: { attributes: {} }
         }
     };
 

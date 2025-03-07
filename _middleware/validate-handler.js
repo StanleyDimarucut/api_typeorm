@@ -1,7 +1,7 @@
-module.export = validateRequest;
+module.exports = validateRequest;
 
 function validateRequest(req, next, schema) {
-    const option = {
+    const options = {
         abortEarly: false,
         allowUnknown: true,
         stripUnknown: true

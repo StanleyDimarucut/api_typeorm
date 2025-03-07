@@ -1,13 +1,12 @@
-const express = require ('express');
+const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
 const validateRequest = require('../_middleware/validate-handler');
 const Role = require('_helpers/role');
 const userService = require('./user.service');
 
-// routes
-
-router.get('/' ,getAll);
+// Routes
+router.get('/', getAll);
 router.get('/:id', getById);
 router.post('/', createSchema, create);
 router.put('/:id', updateSchema, update);
@@ -15,7 +14,7 @@ router.delete('/:id', _delete);
 
 module.exports = router;
 
-// route functions
+// Route functions
 
 function getAll(req, res, next) {
     userService.getAll()
@@ -24,21 +23,21 @@ function getAll(req, res, next) {
 }
 
 function getById(req, res, next) {
-    userService.getAll()
+    userService.getById(req.params.id) // ✅ FIXED: Calls the correct function
         .then(user => res.json(user))
         .catch(next);
 }
 
 function create(req, res, next) {
-    userService.update(req.params.id, req.body)
-        .then(() => res.json({ message: 'User updated' }))
+    userService.create(req.body) // ✅ FIXED: Calls `create` instead of `update`
+        .then(() => res.json({ message: 'User created' }))
         .catch(next);
 }
 
 function update(req, res, next) {
-    userService.create(req.body)
-    .then(() => res.json({ message: 'User created' }))
-    .catch(next);
+    userService.update(req.params.id, req.body) // ✅ FIXED: Calls `update`
+        .then(() => res.json({ message: 'User updated' }))
+        .catch(next);
 }
 
 function _delete(req, res, next) {
@@ -47,7 +46,7 @@ function _delete(req, res, next) {
         .catch(next);
 }
 
-// schema functions
+// Schema functions
 
 function createSchema(req, res, next) {
     const schema = Joi.object({
