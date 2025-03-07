@@ -1,7 +1,7 @@
 const express = require ('express');
 const router = express.Router();
 const Joi = require('joi');
-const validateRequest = require('_middleware/validate-request');
+const validateRequest = require('../_middleware/validate-handler');
 const Role = require('_helpers/role');
 const userService = require('./user.service');
 
@@ -33,6 +33,12 @@ function create(req, res, next) {
     userService.update(req.params.id, req.body)
         .then(() => res.json({ message: 'User updated' }))
         .catch(next);
+}
+
+function update(req, res, next) {
+    userService.create(req.body)
+    .then(() => res.json({ message: 'User created' }))
+    .catch(next);
 }
 
 function _delete(req, res, next) {
